@@ -3,15 +3,12 @@
 
 use std::io::{self, BufRead};
 
-fn main() {
+/// Calibrate our trebuchet calculations
+fn calibrate(input: &mut impl io::BufRead) -> i32 {
     let mut calibration = 0;
 
     // read the input from stdin, looping through each line
-    let stdin = io::stdin();
-    let lines = stdin.lock().lines();
-
-    // while let Some(line) = lines.next() {
-    for line in lines {
+    for line in input.lines() {
         let input = line.unwrap();
         let mut buffer = String::from("");
 
@@ -53,5 +50,35 @@ fn main() {
         ).parse::<i32>().unwrap();
         calibration += number;
     }
+    calibration
+}
+
+fn main() {
+    let stdin = io::stdin();
+    let calibration = calibrate(&mut stdin.lock());
     println!("Calibration: {}", calibration);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use io::BufReader;
+
+    #[test]
+    fn day1() {
+        let input = vec![
+            "1abc2",
+            "pqr3stu8vwx",
+            "a1b2c3d4e5f",
+            "treb7uchet",
+        ];
+        let s = input.join("\n");
+        let foo = s.as_bytes();
+        let mut reader = BufReader::new(foo);
+        let calibration = calibrate(&mut reader);
+
+        assert!(calibration == 142);
+
+
+    }
 }
