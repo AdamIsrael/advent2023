@@ -8,9 +8,10 @@ fn main() {
 
     // read the input from stdin, looping through each line
     let stdin = io::stdin();
-    let mut lines = stdin.lock().lines();
+    let lines = stdin.lock().lines();
 
-    while let Some(line) = lines.next() {
+    // while let Some(line) = lines.next() {
+    for line in lines {
         let input = line.unwrap();
         let mut buffer = String::from("");
 
@@ -19,7 +20,7 @@ fn main() {
         for n in 0..input.len() {
             // get slice of string, starting with our new index
             let s = input.get(n..).unwrap();
-            let first = s.chars().nth(0).unwrap();
+            let first = s.chars().next().unwrap();
 
             if first.is_numeric() {
                 buffer += first.to_string().as_str();
@@ -41,13 +42,13 @@ fn main() {
         }
 
         // Could strip all non-numeric characters and use simple string indexing
-        let numbers: String = buffer.chars().filter(|c| c.is_digit(10)).collect();
+        let numbers: String = buffer.chars().filter(|c| c.is_ascii_digit()).collect();
 
         // Combine the first and last numbers into a single two-digit number
         // and parse it into an i32 so we can add it to the calibration.
         let number = format!(
             "{}{}",
-            numbers.chars().nth(0).unwrap(),
+            numbers.chars().next().unwrap(),
             numbers.chars().nth(numbers.len() - 1).unwrap()
         ).parse::<i32>().unwrap();
         calibration += number;
