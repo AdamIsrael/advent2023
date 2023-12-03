@@ -2,5 +2,5 @@
 resolver = "1"
 members = [
     "day1",
-    # "cube_conundrum",
+    "day2",
 ]
