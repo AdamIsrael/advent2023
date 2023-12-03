@@ -34,8 +34,9 @@ impl Cubes {
         let mut cubes = Cubes { cubes: vec![] };
         for cube_str in input.split(',') {
             let cube = Cube::parse(cube_str.trim());
-            if cube.is_some() {
-                cubes.cubes.push(cube.unwrap());
+            if let Some(c) = cube {
+                cubes.cubes.push(c);
+
             }
         }
         Some(cubes)
