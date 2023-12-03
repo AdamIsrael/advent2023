@@ -78,7 +78,5 @@ mod tests {
         let calibration = calibrate(&mut reader);
 
         assert!(calibration == 142);
-
-
     }
 }
